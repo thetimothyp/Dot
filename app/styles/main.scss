@@ -1,0 +1,23 @@
+// bower:scss
+// endbower
+
+body, html {
+  background: #ffffff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#canvas {
+  background-color: #FCF7E6;
+  margin: 0 auto;
+}
