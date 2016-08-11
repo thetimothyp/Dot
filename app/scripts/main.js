@@ -23,7 +23,6 @@ $(document).keyup(onKeyUp);
 
 function getSpeed() {
 	speed = Math.sqrt(Math.pow(Math.abs(xVel), 2) + Math.pow(Math.abs(yVel), 2));
-	console.log(speed);
 }
 
 function limitSpeed() {
@@ -109,7 +108,7 @@ function drawTail(x, y) {
 }
 
 function draw() {
-	ctx.clearRect(0,0,600,400);
+	ctx.clearRect(0,0,800,500);
 	if (xVel > 0) {
 		xDir = 'right';
 	} else if (xVel < 0) {
@@ -128,16 +127,16 @@ function draw() {
 		xPos = 0; 
 		xVel = 0;
 	}
-	if (xPos >= 600) { 
-		xPos = 600; 
+	if (xPos >= 800) { 
+		xPos = 800; 
 		xVel = 0;
 	}
 	if (yPos <= 0) { 
 		yPos = 0; 
 		yVel = 0;
 	}
-	if (yPos >= 400) { 
-		yPos = 400; 
+	if (yPos >= 500) { 
+		yPos = 500; 
 		yVel = 0;
 	}
 	drawTail(xPos, yPos);
