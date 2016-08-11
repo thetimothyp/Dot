@@ -12,19 +12,36 @@ var xDir, yDir;
 var speed = 0;
 ctx.fillStyle = "#E82368"
 
-setInterval('draw()', 25);
-setInterval('setXVelocity(0.6)', 25);
-setInterval('setYVelocity(0.6)', 25);
-setInterval('getSpeed()', 25);
+setInterval('draw()', 30);
+setInterval('setXVelocity(0.6)', 30);
+setInterval('setYVelocity(0.6)', 30);
+setInterval('getSpeed()', 30);
+setInterval('limitSpeed()', 30);
 
 $(document).keydown(onKeyDown);
 $(document).keyup(onKeyUp);
 
-
-
 function getSpeed() {
 	speed = Math.sqrt(Math.pow(Math.abs(xVel), 2) + Math.pow(Math.abs(yVel), 2));
 	console.log(speed);
+}
+
+function limitSpeed() {
+	if (speed > 8) {
+		if (xVel >= 5.66 && yVel >= 5.66) {
+			xVel = 5.66;
+			yVel = 5.66;
+		} else if (xVel <= -5.66 && yVel <= -5.66) {
+			xVel = -5.66;
+			yVel = -5.66
+		} else if (xVel <= -5.66 && yVel >= 5.66) {
+			xVel = -5.66;
+			yVel = 5.66
+		} else if (xVel >= 5.66 && yVel <= -5.66) {
+			xVel = 5.66;
+			yVel = -5.66
+		}
+	}
 }
 
 function setYVelocity(weight) {
@@ -74,9 +91,21 @@ function setXVelocity(weight) {
 }
 
 function drawDot(x, y) {
+	ctx.fillStyle = "#13CAD4"
 	ctx.beginPath();
 	ctx.arc(x, y, 10, 0, Math.PI*2, true);
 	ctx.fill();
+	ctx.closePath();
+}
+
+function drawTail(x, y) {
+	ctx.fillStyle = "#BFF9FF";
+	for (var i = 1; i < 20; i++) {
+		ctx.beginPath();
+		ctx.arc(x - xVel*(0.3 + i/6), y - yVel*(0.3 + i/6), 20 - i, 0, Math.PI*2, true);
+		ctx.fill();
+		ctx.closePath();
+	}
 }
 
 function draw() {
@@ -111,6 +140,7 @@ function draw() {
 		yPos = 400; 
 		yVel = 0;
 	}
+	drawTail(xPos, yPos);
 	drawDot(xPos, yPos);
 }
 
