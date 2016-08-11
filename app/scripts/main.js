@@ -9,14 +9,23 @@ var yPos = 200;
 var xVel = 0;
 var yVel = 0;
 var xDir, yDir;
+var speed = 0;
 ctx.fillStyle = "#E82368"
 
 setInterval('draw()', 25);
-setInterval('setXVelocity(0.4)', 25);
-setInterval('setYVelocity(0.4)', 25);
+setInterval('setXVelocity(0.6)', 25);
+setInterval('setYVelocity(0.6)', 25);
+setInterval('getSpeed()', 25);
 
 $(document).keydown(onKeyDown);
 $(document).keyup(onKeyUp);
+
+
+
+function getSpeed() {
+	speed = Math.sqrt(Math.pow(Math.abs(xVel), 2) + Math.pow(Math.abs(yVel), 2));
+	console.log(speed);
+}
 
 function setYVelocity(weight) {
 	if (up) {
