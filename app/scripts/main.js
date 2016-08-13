@@ -4,12 +4,13 @@ var left = false;
 var right = false;
 var up = false;
 var down = false;
-var xPos = 300;
-var yPos = 200;
+var xPos = 400;
+var yPos = 250;
 var xVel = 0;
 var yVel = 0;
 var xDir, yDir;
 var speed = 0;
+var positions = [];
 ctx.fillStyle = "#E82368"
 
 setInterval('draw()', 30);
@@ -17,6 +18,7 @@ setInterval('setXVelocity(0.6)', 30);
 setInterval('setYVelocity(0.6)', 30);
 setInterval('getSpeed()', 30);
 setInterval('limitSpeed()', 30);
+setInterval('getPos()', 10);
 
 $(document).keydown(onKeyDown);
 $(document).keyup(onKeyUp);
@@ -90,18 +92,25 @@ function setXVelocity(weight) {
 }
 
 function drawDot(x, y) {
-	ctx.fillStyle = "#13CAD4"
+	ctx.fillStyle = "#00C4CF"
 	ctx.beginPath();
 	ctx.arc(x, y, 10, 0, Math.PI*2, true);
 	ctx.fill();
 	ctx.closePath();
 }
 
+function getPos() {
+	positions.unshift({ x : xPos, y : yPos });
+	if (positions.length > 15) {
+		positions.pop();
+	}
+}
+
 function drawTail(x, y) {
-	ctx.fillStyle = "#BFF9FF";
-	for (var i = 1; i < 20; i++) {
+	ctx.fillStyle = "#92EEF7";
+	for (var i = 0; i < 15; i++) {
 		ctx.beginPath();
-		ctx.arc(x - xVel*(0.3 + i/6), y - yVel*(0.3 + i/6), 20 - i, 0, Math.PI*2, true);
+		ctx.arc(positions[i].x, positions[i].y, 23 - i*1.5, 0, Math.PI*2, true);
 		ctx.fill();
 		ctx.closePath();
 	}
