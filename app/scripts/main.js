@@ -14,38 +14,43 @@ var positions = [];
 ctx.fillStyle = "#E82368"
 
 setInterval('draw()', 30);
-setInterval('setXVelocity(0.6)', 30);
-setInterval('setYVelocity(0.6)', 30);
-setInterval('getSpeed()', 30);
-setInterval('limitSpeed()', 30);
+setSpeed(8);
 setInterval('getPos()', 10);
 
 $(document).keydown(onKeyDown);
 $(document).keyup(onKeyUp);
 
+function setSpeed(maxSpeed) {
+	setInterval('setXVelocity(0.6, ' + maxSpeed + ')', 30);
+	setInterval('setYVelocity(0.6, ' + maxSpeed + ')', 30);
+	setInterval('getSpeed()', 30);
+	setInterval('limitSpeed(' + maxSpeed + ')', 30);
+}
+
 function getSpeed() {
 	speed = Math.sqrt(Math.pow(Math.abs(xVel), 2) + Math.pow(Math.abs(yVel), 2));
 }
 
-function limitSpeed() {
-	if (speed > 8) {
-		if (xVel >= 5.66 && yVel >= 5.66) {
-			xVel = 5.66;
-			yVel = 5.66;
-		} else if (xVel <= -5.66 && yVel <= -5.66) {
-			xVel = -5.66;
-			yVel = -5.66
-		} else if (xVel <= -5.66 && yVel >= 5.66) {
-			xVel = -5.66;
-			yVel = 5.66
-		} else if (xVel >= 5.66 && yVel <= -5.66) {
-			xVel = 5.66;
-			yVel = -5.66
+function limitSpeed(maxSpeed) {
+	var limit = maxSpeed / Math.sqrt(2);
+	if (speed > maxSpeed) {
+		if (xVel >= limit && yVel >= limit) {
+			xVel = limit;
+			yVel = limit;
+		} else if (xVel <= (-1 * limit) && yVel <= (-1 * limit)) {
+			xVel = (-1 * limit);
+			yVel = (-1 * limit);
+		} else if (xVel <= (-1 * limit) && yVel >= limit) {
+			xVel = (-1 * limit);
+			yVel = limit;
+		} else if (xVel >= limit && yVel <= (-1 * limit)) {
+			xVel = limit;
+			yVel = (-1 * limit);
 		}
 	}
 }
 
-function setYVelocity(weight) {
+function setYVelocity(weight, maxSpeed) {
 	if (up) {
 		yVel -= weight;
 	} else if (down) {
@@ -60,15 +65,15 @@ function setYVelocity(weight) {
 		}
 	}
 
-	if (yVel >= 8) {
-		yVel = 8;
+	if (yVel >= maxSpeed) {
+		yVel = maxSpeed;
 	}
-	if (yVel <= -8) {
-		yVel = -8;
+	if (yVel <= (-1 * maxSpeed)) {
+		yVel = (-1 * maxSpeed);
 	}
 }
 
-function setXVelocity(weight) {
+function setXVelocity(weight, maxSpeed) {
 	if (right) {
 		xVel += weight;
 	} else if (left) {
@@ -83,11 +88,11 @@ function setXVelocity(weight) {
 		}
 	}
 
-	if (xVel >= 8) {
-		xVel = 8;
+	if (xVel >= maxSpeed) {
+		xVel = maxSpeed;
 	}
-	if (xVel <= -8) {
-		xVel = -8;
+	if (xVel <= (-1 * maxSpeed)) {
+		xVel = (-1 * maxSpeed);
 	}
 }
 
